@@ -1,91 +1,158 @@
-<html>
+<!DOCTYPE html>
+
+<html lang="en">
 
 <head>
-    <title>Weather Forecasting app</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Weather forecasting application providing current weather information."
+    >
+
+    <title>Weather Forecasting App</title>
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+
 </head>
+
+
 <body>
-    
 
-<div class="card">
-    <div class="search">
-        <input type="text"  placeholder="enter city name" spellcheck="false">
-        <button>search</button>
-    </div>
-    <div class="error">
-        <p>city not found</p>
-    </div>
-    <div class="weather">
-        <img src="images/drizzle.png" class="weather-icon" width="100" margin-top="30px" height="100">
-        <h1 class="temp">25°C</h1>
-        <h2 class="city">New York, USA</h2>
-        <div class="details">
-            <div class="col">
-                <img src="images/humidity.png" alt="humidity icon" width="30" height="30">
-                <p class="humudity">50</p>
-                <p>Humidity</p>
-            </div>
-            <div class="col">
-                <img src="images/wind.png"  width="30" height="30">
-                <p class="wind_speed">50 </p>
-                <br>
-            
-                <p>wind</p>
-            </div>
+    <div class="card">
+
+        <!-- =========================
+             SEARCH
+        ========================== -->
+
+        <div class="search">
+
+            <input
+                type="text"
+                placeholder="Enter city name"
+                spellcheck="false"
+                autocomplete="off"
+            >
+
+            <button type="button">
+                Search
+            </button>
+
         </div>
+
+
+        <!-- =========================
+             ERROR MESSAGE
+        ========================== -->
+
+        <div class="error">
+
+            <p>City not found</p>
+
+        </div>
+
+
+        <!-- =========================
+             WEATHER INFORMATION
+        ========================== -->
+
+        <div class="weather">
+
+            <img
+                src="images/drizzle.png"
+                class="weather-icon"
+                width="100"
+                height="100"
+                alt="Weather condition"
+            >
+
+
+            <h1 class="temp">
+                25°C
+            </h1>
+
+
+            <h2 class="city">
+                New York, USA
+            </h2>
+
+
+            <!-- =========================
+                 WEATHER DETAILS
+            ========================== -->
+
+            <div class="details">
+
+
+                <!-- HUMIDITY -->
+
+                <div class="col">
+
+                    <img
+                        src="images/humidity.png"
+                        alt="Humidity"
+                        width="30"
+                        height="30"
+                    >
+
+                    <div>
+
+                        <p class="humudity">
+                            50%
+                        </p>
+
+                        <p>
+                            Humidity
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- WIND -->
+
+                <div class="col">
+
+                    <img
+                        src="images/wind.png"
+                        alt="Wind speed"
+                        width="30"
+                        height="30"
+                    >
+
+                    <div>
+
+                        <p class="wind_speed">
+                            10 km/h
+                        </p>
+
+                        <p>
+                            Wind
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
     </div>
-</div>
 
-<script>
-    const apikey="Your API Key";
-    const apiurl="https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
-    const searchBox=document.querySelector(".search input");
-    const searchBtn=document.querySelector(".search button");
-    const weatherIcon=document.querySelector(".weather-icon");
-    async function checkweather(city) {
-        const response=await fetch(apiurl +city+`&appid=${apikey}`);
+    <!-- JavaScript -->
 
-        if(response.status==404){
-            document.querySelector(".error").style.display="block";
-            document.querySelector(".weather").style.display="none";
-            return;
-        }else{
-        document.querySelector(".error").style.display="none";
-        var data=await response.json();
-        console.log(data);
-        document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
-        document.querySelector(".city").innerHTML = data.name + ", " + data.sys.country;
-        document.querySelector(".humudity").innerHTML = data.main.humidity + "%";
-        
-        document.querySelector(".wind_speed").innerHTML = data.wind.speed + " km/h";
-        if(data.weather[0].main=="Clouds"){
-            weatherIcon.src="images/cloudy.png";
-        }
-        else if(data.weather[0].main=="Clear"){
-           weatherIcon.src="images/clear-sky.png";
-        }
-        else if(data.weather[0].main=="Rain"){
-            weatherIcon.src="images/rain.png";
-        }
-        else if(data.weather[0].main=="Drizzle"){
-            weatherIcon.src="images/drizzle.png";
-        }
-        else if(data.weather[0].main=="Mist"){
-            weatherIcon.src="images/fog.png";
-        }
+    <script src="script.js"></script>
 
-        document.querySelector(".weather").style.display="block";
-
-    }
-    }
-
-    //calling the function when the search button is clicked 
-    searchBtn.addEventListener("click",()=>{
-        checkweather(searchBox.value);
-    })
-    
-</script>
 </body>
 
 </html>
